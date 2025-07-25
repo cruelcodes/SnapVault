@@ -63,9 +63,11 @@ const productSchema = new Schema<IProduct>(
     description: { type: String, required: true },
     imageUrl: { type: String, required: true },
     variants: [imageVariantSchema],
+    seller: { type: Schema.Types.ObjectId, ref: "User", required: true }, // ✅ Add this
   },
   { timestamps: true }
 );
+
 
 const Product = models?.Product || model<IProduct>("Product", productSchema);
 

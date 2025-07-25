@@ -26,10 +26,10 @@ export default function Header() {
             href="/"
             className="btn btn-ghost text-xl gap-2 normal-case font-bold"
             prefetch={true}
-            onClick={() => showNotification("Welcome to ImageKit Shop", "info")}
+            onClick={() => showNotification("Welcome to SnapVault", "info")}
           >
             <Home className="w-5 h-5" />
-            ImageKit Shop
+            SnapVault
           </Link>
         </div>
         <div className="flex flex-1 justify-end px-2">
@@ -54,30 +54,42 @@ export default function Header() {
                       </span>
                     </li>
                     <div className="divider my-1"></div>
-                    {session.user?.role === "admin" && (
+                    {session.user?.role === "seller" && (
                       <li>
                         <Link
-                          href="/admin"
+                          href="/seller"
                           className="px-4 py-2 hover:bg-base-200 block w-full"
                           onClick={() =>
                             showNotification(
-                              "Welcome to Admin Dashboard",
+                              "List Your Item Here",
                               "info"
                             )
                           }
                         >
-                          Admin Dashboard
+                          List Items
                         </Link>
                       </li>
                     )}
-                    <li>
-                      <Link
-                        href="/orders"
-                        className="px-4 py-2 hover:bg-base-200 block w-full"
-                      >
-                        My Orders
-                      </Link>
-                    </li>
+                    {session.user?.role === "seller" ? (
+  <li>
+    <Link
+      href="/sales"
+      className="px-4 py-2 hover:bg-base-200 block w-full"
+    >
+      Sales
+    </Link>
+  </li>
+) : (
+  <li>
+    <Link
+      href="/orders"
+      className="px-4 py-2 hover:bg-base-200 block w-full"
+    >
+      My Orders
+    </Link>
+  </li>
+)}
+
                     <li>
                       <button
                         onClick={handleSignOut}

@@ -56,7 +56,14 @@ export async function POST(request: NextRequest) {
       }
     }
 
-    const newProduct = await Product.create(body);
+    const newProduct = await Product.create({
+  name: body.name,
+  description: body.description,
+  imageUrl: body.imageUrl,
+  variants: body.variants,
+  seller: session.user.id, // ✅ this is the key part
+});
+
     return NextResponse.json(newProduct);
   } catch (error) {
     console.error("Error creating product:", error);

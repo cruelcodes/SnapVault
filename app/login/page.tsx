@@ -26,7 +26,7 @@ export default function Login() {
       showNotification(result.error, "error");
     } else {
       showNotification("Login successful!", "success");
-      router.push(role === "seller" ? "/seller" : "/");
+      router.push(role === "seller" ? "/" : "/");
 
 
     }
