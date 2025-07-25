@@ -11,10 +11,11 @@ export const authOptions: NextAuthOptions = {
       credentials: {
         email: { label: "Email", type: "text" },
         password: { label: "Password", type: "password" },
+        role: { label: "Role", type: "text" }, // ✅ include role in credentials
       },
       async authorize(credentials) {
-        if (!credentials?.email || !credentials?.password) {
-          throw new Error("Missing email or password");
+        if (!credentials?.email || !credentials?.password || !credentials?.role) {
+          throw new Error("Missing email, password, or role");
         }
 
         try {
@@ -32,6 +33,11 @@ export const authOptions: NextAuthOptions = {
 
           if (!isValid) {
             throw new Error("Invalid password");
+          }
+
+          // ✅ Role check here — prevents cross-role login
+          if (user.role !== credentials.role) {
+            throw new Error(`User is not registered as a ${credentials.role}`);
           }
 
           return {
@@ -61,7 +67,11 @@ export const authOptions: NextAuthOptions = {
       }
       return session;
     },
+    redirect({ url, baseUrl }) {
+      return baseUrl;
+    },
   },
+
   pages: {
     signIn: "/login",
     error: "/login",
