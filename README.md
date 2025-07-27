@@ -1,4 +1,4 @@
-# Image selling application with ImageKit, Razorpay and NextAuth.
+# Image buying and selling application with ImageKit, Razorpay and NextAuth.
 
 # Features:
  - User authentication with NextAuth
